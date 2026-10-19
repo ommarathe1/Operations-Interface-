@@ -1,0 +1,22 @@
+import {ArrowRight,ArrowUpRight,Check,CheckCheck,ChevronRight,FolderKanban,GitBranch,LockKeyhole,LogIn,ShieldCheck,Sparkles,Users} from "lucide-react";
+
+type LoginScreenProps={user:{name:string;email:string}|null;signInHref:string;signOutHref:string};
+export default function LoginScreen({user,signInHref,signOutHref}:LoginScreenProps){
+  const initials=user?.name.split(/[\s@._]+/).filter(Boolean).slice(0,2).map(n=>n[0]).join("").toUpperCase();
+  return <main className="login-page">
+    <section className="login-story" aria-label="Newtonite Operations">
+      <a className="login-brand" href="/login" aria-label="Newtonite login"><span className="brand-mark">n<span/></span><span>newtonite<span className="brand-period">.</span></span></a>
+      <div className="login-story-content"><div className="login-story-eyebrow"><span/>YOUR WORK, CONNECTED</div><h1>Good work starts<br/>with a clear<br/><em>next step.</em></h1><p>Bring your teams, decisions, and daily work together. Keep the important things moving.</p>
+        <div className="login-illustration" aria-hidden="true"><div className="login-orbit orbit-one"/><div className="login-orbit orbit-two"/><div className="illustration-label"><GitBranch size={13}/> A little clarity. A lot of progress.</div><div className="illustration-card"><div className="illustration-card-top"><span><FolderKanban size={17}/></span><span>TEAM WORKSPACE</span><span>···</span></div><strong>Move the next idea forward</strong><p>Clear context. One accountable owner.</p><div className="illustration-task"><span className="illustration-check"><Check size={12}/></span><span>Bring the right people together</span><span className="illustration-avatars"><i>MR</i><i>AM</i><i>PS</i></span></div><div className="illustration-task"><span className="illustration-check"><Check size={12}/></span><span>Keep the next action clear</span><span className="illustration-status">In progress</span></div><div className="illustration-card-bottom"><span><ShieldCheck size={12}/>Every decision has a history</span><ArrowUpRight size={15}/></div></div><div className="illustration-saved"><span><CheckCheck size={15}/></span><div><strong>Work, in sync.</strong><p>Your team has the full picture.</p></div><Sparkles size={17}/></div></div>
+      </div><div className="login-story-footer"><span className="login-footer-dot"/>Clear ownership. Better operations.</div>
+    </section>
+    <section className="login-entry" aria-label="Sign in to your workspace"><div className="login-entry-top"><span><LockKeyhole size={12}/>Private workspace</span></div>
+      <div className="login-form-area"><span className="login-door-icon"><LogIn size={24}/></span><div className="login-form-eyebrow">NEWTONITE OPERATIONS</div><h2>Welcome back.</h2><p className="login-intro">Your team’s work is waiting.<br/>Sign in and pick up where you left off.</p>
+        {user&&<div className="login-identity"><span className="login-user-avatar">{initials}</span><div><span>You’re signed in as</span><strong>{user.name}</strong><p>{user.email}</p></div><ShieldCheck size={18}/></div>}
+        <a className="login-primary" href={user?"/":signInHref} target={user?undefined:"_top"}>{user?<><span>Continue to workspace</span><ArrowRight size={17}/></>:<><svg viewBox="0 0 24 24" width="19" height="19" fill="none" aria-hidden="true"><path d="M7 5.5 12 2.5l5 3v6l-5 3-5-3v-6Zm0 6-5 3v6l5 3 5-3v-6l5-3 5 3v6l-5 3-5-3" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" transform="translate(1 -1) scale(.91)"/></svg><span>Sign in with ChatGPT</span><ArrowRight size={17}/></>}</a>
+        {user?<a className="login-switch" href={signOutHref} target="_top">Use a different account<ChevronRight size={13}/></a>:<p className="login-signin-note"><LockKeyhole size={11}/>Secure sign-in with your ChatGPT account.</p>}
+        <div className="login-divider"><span/>A SHARED PLACE FOR YOUR WORK<span/></div><div className="login-benefits"><span><Users size={15}/>Connected teams</span><span><ShieldCheck size={15}/>Clear access</span><span><GitBranch size={15}/>Saved history</span></div><div className="login-access-note"><LockKeyhole size={16}/><p>Need workspace access? Ask your team manager. Your team role determines the work you can view and manage.</p></div>
+      </div><footer className="login-entry-footer"><span>Newtonite workspace</span><span><ShieldCheck size={12}/>Built around your team.</span></footer>
+    </section>
+  </main>;
+}
